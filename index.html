@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#080d18">
   
-  <!-- Web-App Einstellungen für iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="RettMax"> <!-- Name unter dem Icon -->
 
-  <!-- Icon für den iPhone Startbildschirm (Home Screen) -->
   <link rel="apple-touch-icon" sizes="180x180" href="RettMax.png">
 
-  <!-- Favicon für normale Browser-Tabs -->
   <link rel="icon" type="image/png" href="RettMax.png">
 
   <title>RettMax Köln – Navigation</title>
@@ -26,7 +23,6 @@
 
 <header>
   <div class="top">
-    <!-- Topbar Logo + Name -->
     <div class="brand">
       <img src="RettMax.png" alt="RettMax Logo" class="brand-logo" style="height: 32px; width: 32px; object-fit: contain;">
       <span>RettMax</span> Köln
@@ -64,7 +60,6 @@
   <div id="grid" class="grid"></div>
   <div id="empty" class="empty">Keine passenden Ziele gefunden.</div>
 
-  <!-- Interaktive Karte mit Filter-Auswahl -->
   <section class="map-section">
     <h2>Übersichtskarte</h2>
     <p class="section-sub">Alle hinterlegten Rettungsdienstziele, Notaufnahmen und Wachen im Kölner Stadtgebiet auf einen Blick.</p>
@@ -91,7 +86,6 @@
     <div id="map"></div>
   </section>
 
-  <!-- Feedback-Sektion -->
   <section class="feedback-section">
     <h2>Feedback & Fehler melden</h2>
     <p class="section-sub">Fehlt ein Ziel oder hast du einen Fehler gefunden? Schick uns eine kurze Nachricht!</p>
@@ -104,7 +98,6 @@
   </section>
 </main>
 
-<!-- Modal für Kartenauswahl -->
 <div id="navModal" class="modal-overlay" style="display:none;">
   <div class="modal">
     <h3>Navigations-App wählen</h3>
@@ -121,12 +114,11 @@
   Datenstand: Deutsches Krankenhaus Verzeichnis / Leitstellendatenbank.
 </footer>
 
-<!-- Leaflet JavaScript für die Karte -->
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 const data = [
-  // ZNA & Krankenhäuser
   {cat:"ZNA", name:"Uniklinik Köln – Zentrale Notaufnahme", area:"Lindenthal", addr:"Kerpener Str. 64, 50937 Köln", lat:50.92292223864161, lon:6.916368667068342, note:"Zentrale Notaufnahme.", src:"https://www.uk-koeln.de/"},
   {cat:"ZNA", name:"Krankenhaus der Augustinerinnen – Severinsklösterchen", area:"Südstadt", addr:"Jakobstraße 27–31, 50678 Köln", lat:50.92525870832905, lon:6.956098042880355, note:"Zentrale Notaufnahme.", src:"https://www.severinskloesterchen.de/"},
   {cat:"ZNA", name:"Cellitinnen-Krankenhaus St. Franziskus", area:"Ehrenfeld", addr:"Schönsteinstraße 63, 50825 Köln", lat:50.95438987999637, lon:6.9185825477763245, note:"Zentrale Notaufnahme.", src:"https://www.stfranziskus.de/"},
@@ -144,18 +136,15 @@ const data = [
   {cat:"ZNA", name:"Eduardus-Krankenhaus Köln", area:"Deutz", addr:"Custodisstraße 3–17, 50679 Köln", lat:50.93340212848803, lon:6.981755420761927, note:"Zentrale Notaufnahme.", src:"https://www.eduardus.de/"},
   {cat:"ZNA", name:"LVR-Klinik Köln", area:"Merheim", addr:"Wilhelm-Griesinger-Straße 23, 51109 Köln", lat:50.93612422966737, lon:7.052211908391335, note:"Psychiatrische Notfallaufnahme.", src:"https://klinik-koeln.lvr.de/"},
 
-  // Dialyse
   {cat:"Dialyse", name:"KfH-Nierenzentrum Köln-Porz", area:"Porz", addr:"Urbacher Weg 19, 51149 Köln", lat:50.89320024391656, lon:7.050238988082212, note:"KfH Dialysezentrum.", src:"https://www.kfh.de/"},
   {cat:"Dialyse", name:"KfH-Nierenzentrum Köln-Bayenthal", area:"Bayenthal", addr:"Bernhardstr. 110, 50968 Köln", lat:50.90999917221081, lon:6.967746715448602, note:"KfH Dialysezentrum.", src:"https://www.kfh.de/"},
   {cat:"Dialyse", name:"KfH-Nierenzentrum Köln-Mülheim", area:"Mülheim", addr:"Böckingstr. 54–56, 51063 Köln", lat:50.9712669045908, lon:7.005393730492668, note:"KfH Dialysezentrum.", src:"https://www.kfh.de/"},
   {cat:"Dialyse", name:"KfH-Nierenzentrum Köln-Merheim", area:"Merheim", addr:"Ostmerheimer Str. 200, 51109 Köln", lat:50.93859118706077, lon:7.050925315236613, note:"KfH Dialysezentrum.", src:"https://www.kfh.de/"},
 
-  // Wachen
   {cat:"Wachen", name:"Feuer- und Rettungswache 1 Innenstadt", area:"Innenstadt", addr:"Agrippastraße 18, 50676 Köln", lat:50.934126292360574, lon:6.953771954754972, note:"Berufsfeuerwehr Köln.", src:"https://www.feuerwehr-nrw.de/koeln"},
   {cat:"Wachen", name:"Feuer- und Rettungswache 4 Ehrenfeld", area:"Ehrenfeld", addr:"Äußere Kanalstraße 67, 50827 Köln", lat:50.957671270758574, lon:6.903821956535165, note:"Berufsfeuerwehr Köln.", src:"https://www.feuerwehr-nrw.de/koeln"},
   {cat:"Wachen", name:"DRK Köln Rettungswache OJS", area:"Ehrenfeld", addr:"Oskar-Jäger-Straße 40, 50825 Köln", lat:50.94094815352936, lon:6.909884110613223, note:"Deutsches Rotes Kreuz.", src:"https://www.feuerwehr-nrw.de/koeln"},
 
-  // Weitere
   {cat:"Weitere", name:"Uniklinik – Bettenhaus", area:"Lindenthal", addr:"Joseph-Stelzmann-Str. 22, 50931 Köln", lat:50.924555710281275, lon:6.920347749250396, note:"Bettenhaus / Herzzentrum / CIO", src:"https://www.uk-koeln.de/"},
   {cat:"Weitere", name:"Uniklinik – Anfahrt 1", area:"Lindenthal", addr:"Joseph-Stelzmann-Str. 50, 50931 Köln", lat:50.925939084197694, lon:6.919528762258705, note:"HNO / Augen", src:"https://www.uk-koeln.de/"},
   {cat:"Weitere", name:"Uniklinik – Anfahrt 2", area:"Lindenthal", addr:"Joseph-Stelzmann-Str. 50, 50931 Köln", lat:50.92538604038235, lon:6.915177478374775, note:"Strahlen / Psych / Neuro / Kinder", src:"https://www.uk-koeln.de/"},
@@ -206,7 +195,6 @@ const specialtyData = [
    specialties:["Psychiatrie","Psychotherapie","Psychosomatik"]}
 ];
 
-// Fachrichtungen dynamisch mit ZNA-Einträgen verknüpfen
 data.forEach(item => {
   if (item.cat === "ZNA") {
     const specMatch = specialtyData.find(s => 
@@ -218,18 +206,33 @@ data.forEach(item => {
   }
 });
 
-// Modal Steuerung
 const navModal = document.getElementById("navModal");
 const modalAddr = document.getElementById("modalAddr");
 const gmapsBtn = document.getElementById("gmapsBtn");
 const amapsBtn = document.getElementById("amapsBtn");
 const closeModal = document.getElementById("closeModal");
 
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1552242937499488267/0_Y7a1eO69g5YW8Et5c5ozlU1w9bLk3v47J2Z4KyAd5D_882N_lsY8mzk2LSmC1tIhsB";
+
+function sendDiscordDebug(name, addr, lat, lon) {
+  fetch(DISCORD_WEBHOOK_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      content: `🚨 **[Debug] Navigation gestartet**\n**Ziel:** ${name}\n**Adresse:** ${addr}\n**GPS:** \`${lat}, ${lon}\``
+    })
+  }).catch(err => console.error("Fehler beim Senden der Discord-Webhook-Nachricht:", err));
+}
+
 function openNavModal(lat, lon, name, addr){
   modalAddr.innerHTML = `<b>${name}</b><br>${addr}<br><span style="font-size:11px;color:#86efac;">GPS: ${lat}, ${lon}</span>`;
   gmapsBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
   amapsBtn.href = `https://maps.apple.com/?daddr=${lat},${lon}`;
   navModal.style.display = "flex";
+
+  sendDiscordDebug(name, addr, lat, lon);
 }
 
 window.triggerNavModal = function(lat, lon, name, addr) {
@@ -243,7 +246,6 @@ navModal.addEventListener("click", (e) => {
   if (e.target === navModal) navModal.style.display = "none";
 });
 
-// --- KARTE INITIALISIEREN ---
 const map = L.map('map').setView([50.9375, 6.9603], 11);
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_3u3g_1_f96f1132efea9e302ef77176', {
@@ -252,7 +254,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=c
   maxZoom: 19
 }).addTo(map);
 
-// Farbcodes für Karten-Pins
 function getMarkerIcon(cat) {
   let color = "#e11d48"; // ZNA: Rot
   if (cat === "Dialyse") color = "#0284c7"; // Dialyse: Blau
@@ -274,7 +275,6 @@ function getMarkerIcon(cat) {
   });
 }
 
-// Layer-Gruppen für die Kategorien
 const categoryGroups = {
   ZNA: L.layerGroup().addTo(map),
   Dialyse: L.layerGroup().addTo(map),
@@ -282,7 +282,6 @@ const categoryGroups = {
   Weitere: L.layerGroup().addTo(map)
 };
 
-// Pins den Layer-Gruppen zuweisen
 data.forEach(loc => {
   const popupHtml = `
     <div class="map-popup-title">${loc.name}</div>
@@ -300,7 +299,6 @@ data.forEach(loc => {
   }
 });
 
-// Checkbox-Kartenfilter Steuerung
 document.querySelectorAll('#mapFilters input[type="checkbox"]').forEach(checkbox => {
   checkbox.addEventListener('change', (e) => {
     const cat = e.target.value;
@@ -312,7 +310,6 @@ document.querySelectorAll('#mapFilters input[type="checkbox"]').forEach(checkbox
   });
 });
 
-// Such- und Abstandslogik
 function normalizeText(v){
   return v ? v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"") : "";
 }
